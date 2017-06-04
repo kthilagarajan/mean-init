@@ -1,0 +1,14 @@
+.clientAlign {
+    justify-content: flex-end;
+}
+.client {
+    background: lightskyblue;
+}
+
+.server {
+    background: palevioletred;
+}
+.client,.server{
+    width: 50%;
+    padding:10px;
+}

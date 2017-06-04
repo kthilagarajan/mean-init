@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="style.css">
+
+<body ng-app="chatApp" ng-controller="homeController as vm" ng-cloak>
+<div class="row" style="margin: 0px;height: 100vh;">
+    <div class="col-md-3" style="height:inherit;background: #353535;">
+        <form class="form-control" style="margin-top:10px;">
+            <input type="text" class="form-control" placeholder="Search Conversation"/>
+        </form>
+        <div class="form-control">
+            <div class="list-group">
+                <a ui-sref-active="active"
+                   class="list-group-item list-group-item-action flex-column align-items-start ">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
+                        varius blandit.</p>
+                    <small>Donec id elit non mi porta.</small>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row" style="background: #bbbbbb;height:8vh;padding: 10px;">
+            <div class="col-md-1">
+                <i class="fa fa-user fa-2x"></i>
+            </div>
+            <div class="col-md-10">
+                User name
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-gears fa-2x"></i>
+            </div>
+        </div>
+        <div style="height:80vh;">
+            <ul style="list-style: none;padding: 0px;">
+                <li ng-repeat="chatObj in vm.chatHistory"
+                    style="width:100%;display: flex;"
+                    ng-class="chatObj.client ? 'clientAlign' : ''">
+                    <div ng-class="chatObj.client ? 'client' : 'server'">
+                        {{chatObj.message}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <form ng-submit="vm.sendMessage(vm.messageText)">
+            <div class="row" style="margin:0px;margin-top: 10px;">
+                <div class="col-md-10">
+                    <textarea ng-model="vm.messageText" class="form-control" placeholder="Enter Message"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
+<script src="chatApp.js"></script>

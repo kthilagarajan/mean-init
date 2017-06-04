@@ -1,0 +1,30 @@
+{
+  "name": "chatserver",
+  "version": "1.0.0",
+  "description": "chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.4",
+    "body-parser": "^1.13.2",
+    "connect": "^3.4.0",
+    "ejs": "^2.3.3",
+    "express": "^4.13.1",
+    "express-fileupload": "0.0.7",
+    "express-layout": "^0.1.0",
+    "express-session": "^1.11.3",
+    "moment": "^2.17.1",
+    "mongodb": "^2.0.39",
+    "mqtt": "^2.1.3",
+    "socket.io": "^1.3.6",
+    "socket.io-client": "^1.3.6",
+    "string": "^3.3.0",
+    "twitter": "^1.7.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {}
+}
