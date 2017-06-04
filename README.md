@@ -2,7 +2,7 @@
 
 #Bakcup/Restore Mongo db
 
-Bakcup DB
+Backup DB
 mongodump -d <database_name> -o <directory_backup>
 
 Restore DB
@@ -24,6 +24,7 @@ For auth:
 mongod --auth --dbpath "<database path>"
 
 Client:
+
 To start:
 mongo 
 
@@ -39,6 +40,8 @@ db.user.insert({"key":"value"})
 
 
 # Node Server
+
+Locate package.json in cmd prompt, and run "npm install"
 node app.js
 
 
