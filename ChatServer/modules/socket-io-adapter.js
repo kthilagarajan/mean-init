@@ -25,13 +25,12 @@ SocketIO.prototype.eventHandlers = function () {
             socket.join(room);
         })*/
         socket.on("privateChat",function (msg) {
-
             console.log("Entered Private Chat")
             console.log(self.singleChat.storeMessage())
         });
         var parsedCookie = self.parseCookie(socket.handshake.headers.cookie);
         //	console.log("*************",parsedCookie)
-        var sessionID = S(parsedCookie['express.sid']).replaceAll("s:", "").s;
+        var sessionID = parsedCookie['express.sid'] ? S(parsedCookie['express.sid']).replaceAll("s:", "").s : "ID NOT FOUND";
         /*socket.join(sessionID); //socket.handshake.sessionID);
         console.log('A socket with sessionID ' + sessionID + ' connected!');
         socket.on('global_chat', function (data) {
