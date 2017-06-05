@@ -1,5 +1,4 @@
 var Authentication = require('./actions/authentication');
-var Products = require('./actions/products');
 
 
 var fs = require("fs");
@@ -7,7 +6,6 @@ var fs = require("fs");
 var Routes = function(app){
 	this.app = app;
 	this.authentication = new Authentication(app);
-	this.products = new Products(app);
 	this.init();
 };
 module.exports = Routes;
@@ -26,7 +24,6 @@ var sessionCheck = function(req, res, next){
 
 
 Routes.prototype.init = function(){
-	
 	var self = this;
 	
 	self.app.get('/', function (req, res) {
@@ -36,17 +33,18 @@ Routes.prototype.init = function(){
 
 	self.app.post('/login',function(req,res){
 
-		self.authentication.login(req, function(response){
-			res.json(response);
-		})
-	});
+        self.authentication.login(req, function(response){
+            res.json(response);
+        })
+    });
 
-	//Beacon Types
-	self.app.get('/beacon/types',sessionCheck,function(req,res){
-		self.devices.beaconsTypesList(req, function(response){
-			res.json(response);
-		})
-	});
+    self.app.post('/register',function(req,res){
+
+        self.authentication.createUser(req, function(response){
+            res.json(response);
+        })
+    });
+
 	
 };
 

@@ -1,7 +1,5 @@
 var Authentication = function(app){
 	this.db = app.dbconn;
-	
-	
 };
 
 module.exports = Authentication;
@@ -16,15 +14,14 @@ Authentication.prototype.login = function(req, cbk){
 		err : null,
 		data : null
 	};
-	
 	var reqObj = req.body;
 	
-	var username = reqObj.userName;
-	var password = reqObj.password;
+	var username = reqObj.un;
+	var password = reqObj.pw;
 	//{'$and':[{username:username},{role:Number(reqObj.role)}]}
 	self.db.collection('users').findOne({username:username}, function(err, result) {
 		  if(!err && result){
-			  if(result.password == password && result.role == Number(reqObj.role)){
+			  if(result.password == password && result.username == username){
 				  delete result.password;
 				  
 				  response['status'] = true;

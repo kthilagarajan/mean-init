@@ -1,10 +1,30 @@
 <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="style.css">
-
+<title>ChatApp</title>
 <body ng-app="chatApp" ng-controller="homeController as vm" ng-cloak>
+
 <div class="row" style="margin: 0px;height: 100vh;">
-    <div class="col-md-3" style="height:inherit;background: #353535;">
+
+    <div class="col-md-3" ng-show="!vm.loginSuccess" style="height:inherit;">
+        <h3>Sign UP</h3>
+        <form class="form-control" ng-submit="doRegister()" ng-model="vm.register">
+            <input type="text" ng-model="vm.register.un" class="form-control" placeholder="Username" required>
+            <input type="password" ng-model="vm.register.pw" class="form-control" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <h3>Sign IN</h3>
+        <form class="form-control" ng-submit="doLogin()" ng-model="vm.login">
+            <input type="text" ng-model="vm.login.un" class="form-control" placeholder="Username" required>
+            <input type="password" ng-model="vm.login.pw" class="form-control" placeholder="Password" required>
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+
+    </div>
+    <div class="col-md-9" ng-show="!vm.loginSuccess">
+        <h1>Welcome to Chat App</h1>
+    </div>
+    <div class="col-md-3" ng-show="vm.loginSuccess" style="height:inherit;background: #353535;">
         <form class="form-control" style="margin-top:10px;">
             <input type="text" class="form-control" placeholder="Search Conversation"/>
         </form>
@@ -23,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" ng-show="vm.loginSuccess">
         <div class="row" style="background: #bbbbbb;height:8vh;padding: 10px;">
             <div class="col-md-1">
                 <i class="fa fa-user fa-2x"></i>
@@ -66,3 +86,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
 <script src="chatApp.js"></script>
+<script src="loginService.js"></script>

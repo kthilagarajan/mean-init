@@ -87,7 +87,7 @@ mongoClient.connect(function(dbconn){
         console.log('API running on localhost:'+conf['web']['port'])
     });
 
-    /*//Initializing the web routes
+    //Initializing the web routes
     var Routes = require('./routes/http-routes');
-    new Routes(app);*/
+    new Routes(app);
 });

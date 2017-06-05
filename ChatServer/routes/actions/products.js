@@ -2,14 +2,11 @@ var async = require("async");
 var moment = require("moment");
 var _ = require('underscore');
 var ObjectId = require('mongodb').ObjectID;
-var Notification = require('./notification');
 
 
 var Products  = function(app){
 	this.conf = app.conf;
 	this.db = app.dbconn;
-	this.urbanairship = app.urbanairship;
-	this.notification = new Notification(app);
 
 };
 module.exports = Products;
