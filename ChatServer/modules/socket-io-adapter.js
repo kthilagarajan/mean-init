@@ -33,7 +33,7 @@ SocketIO.prototype.eventHandlers = function () {
 
         var parsedCookie = self.parseCookie(socket.handshake.headers.cookie);
         //	console.log("*************",parsedCookie)
-        var sessionID = parsedCookie['express.sid'] ? S(parsedCookie['express.sid']).replaceAll("s:", "").s : "ID NOT FOUND";
+//        var sessionID = parsedCookie['express.sid'] ? S(parsedCookie['express.sid']).replaceAll("s:", "").s : "ID NOT FOUND";
         /*socket.join(sessionID); //socket.handshake.sessionID);
         console.log('A socket with sessionID ' + sessionID + ' connected!');
         socket.on('global_chat', function (data) {
@@ -41,9 +41,10 @@ SocketIO.prototype.eventHandlers = function () {
             // console.log(data);
         });*/
         socket.on('disconnect', function () {
-            console.log('A socket with sessionID ' + sessionID
-                + ' disconnected!');
-            self.removeSession(sessionID);
+//            console.log('A socket with sessionID ' + sessionID
+//                + ' disconnected!');
+//            self.removeSession(sessionID);
+            console.log("Socket Disconnected")
         });
     });
 

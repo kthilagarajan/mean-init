@@ -11,6 +11,11 @@ function loginService($http) {
             $http.post(apiBase+"/register",loginInfo).then(function (response) {
                 cbk(response.data)
             })
+        },
+        logout : function (logoutInfo, cbk) {
+            $http.post(apiBase+"/logout",logoutInfo).then(function (response) {
+                cbk(response.data)
+            })
         }
     };
 }

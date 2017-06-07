@@ -49,8 +49,8 @@ Routes.prototype.init = function(){
         })
     });
 
-    self.app.get('/logout',function(req,res){
-        self.users.logout(req, function(response){
+    self.app.post('/logout',function(req,res){
+        self.authentication.logout(req, function(response){
             res.json(response);
         })
     });

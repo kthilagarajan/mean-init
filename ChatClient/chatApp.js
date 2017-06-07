@@ -7,40 +7,38 @@ function homeController($scope,loginService,chatService){
     vm.loginSuccess = false;
     vm.activeUsersList = []
 
+    $scope.getActiveUsers = function(){
+            chatService.activeUsers("true",function(response){
+                if(response.status){
+                    vm.activeUsersList = response.data
+                }else{
+                    alert(response.err)
+                }
+            })
+        }
+
     $scope.checkSession = function(){
        if(getUserSession()){
+            $scope.getActiveUsers()
             vm.loginSuccess = true;
        }else{
             vm.loginSuccess = false;
        }
-    }
-    function setUserSession(){
-        localStorage.setItem("logStatus",true)
-    }
-    function getUserSession(){
-        return localStorage.getItem("logStatus")
-    }
-    function clearUserSession(){
-        localStorage.removeItem("logStatus")
     }
     $scope.checkSession()
     $scope.doLogin = function () {
         loginService.login(vm.login, function (response) {
             if(response.status){
                 vm.loginSuccess = true;
-                setUserSession()
-                chatService.activeUsers("true",function(response){
-                    if(response.status){
-                        vm.activeUsersList = response.data
-                    }else{
-                        alert(response.err)
-                    }
-                })
+                setUserSession(vm.login)
+                $scope.getActiveUsers()
             }else{
                 alert(response.err)
             }
         })
     }
+
+
     $scope.doRegister = function () {
         loginService.register(vm.register, function (response) {
             if(response.status){
@@ -77,17 +75,31 @@ function homeController($scope,loginService,chatService){
         console.log("Socket Connected")
     });
     socket.on('activeUsers', function(data){
-        console.log(data)
-        vm.activeUsersList = vm.activeUsersList.concat(data)
+        vm.activeUsersList = _.uniq(vm.activeUsersList.concat(data))
         $scope.$apply()
-        console.log("vm.activeUsersList")
-        console.log(vm.activeUsersList)
     });
     socket.on('disconnect', function(){
         console.log("Socket Disconnected")
     });
 
     $scope.logout = function(){
-        clearUserSession()
+        loginService.logout(vm.login, function (response) {
+            if(response.status){
+                clearUserSession()
+                vm.loginSuccess = false;
+                window.location.reload()
+            }else{
+                alert(response.err)
+            }
+        })
+    }
+    function setUserSession(userObj){
+        localStorage.setItem("user",JSON.stringify(userObj))
+    }
+    function getUserSession(){
+        return JSON.parse(localStorage.getItem("user"))
+    }
+    function clearUserSession(){
+        localStorage.removeItem("user")
     }
 }

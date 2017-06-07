@@ -96,3 +96,26 @@ Authentication.prototype.createUser = function(req, cbk){
 	});
 	
 };
+
+Authentication.prototype.logout = function(req, cbk){
+
+	var self = this;
+
+	var response = {
+		status : false,
+		err : null,
+		data : null
+	};
+	var reqObj = req.body;
+
+	var username = reqObj.un;
+	var password = reqObj.pw;
+	self.db.collection('users').update({username:username},{"$set":{inSession:false}},function(err,updateResult){
+        self.socket.io.emit("activeUsers",updateResult)
+        response["status"] = true
+        response["data"] = updateResult
+        console.log(updateResult)
+        cbk(response)
+      })
+
+};
