@@ -30,15 +30,14 @@
         </form>
         <div class="form-control">
             <div class="list-group">
-                <a ui-sref-active="active"
-                   class="list-group-item list-group-item-action flex-column align-items-start ">
+                <a class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="users in vm.activeUsersList">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small>3 days ago</small>
+                        <h5 class="mb-1">{{users.fullName}}</h5>
+                        <!--<small>3 days ago</small>-->
                     </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                        varius blandit.</p>
-                    <small>Donec id elit non mi porta.</small>
+                    <!--<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus-->
+                        <!--varius blandit.</p>-->
+                    <!--<small>Donec id elit non mi porta.</small>-->
                 </a>
             </div>
         </div>
@@ -52,7 +51,7 @@
                 User name
             </div>
             <div class="col-md-1">
-                <i class="fa fa-gears fa-2x"></i>
+                <i ng-click="logout()" class="fa fa-gears fa-2x"></i>
             </div>
         </div>
         <div style="height:80vh;">
@@ -87,3 +86,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js"></script>
 <script src="chatApp.js"></script>
 <script src="loginService.js"></script>
+<script src="chatServices.js"></script>

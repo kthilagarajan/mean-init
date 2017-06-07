@@ -75,7 +75,7 @@ mongoClient.connect(function(dbconn){
 
     app.dbconn = dbconn;
     app.conf = conf;
-    new SocketIO(io,app);
+    app.socket = new SocketIO(io,app);
     /*app.get('/', function (req, res) {
         res.send('hello world');
     })*/

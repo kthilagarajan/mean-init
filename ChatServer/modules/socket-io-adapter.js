@@ -28,6 +28,9 @@ SocketIO.prototype.eventHandlers = function () {
             console.log("Entered Private Chat")
             console.log(self.singleChat.storeMessage())
         });
+
+
+
         var parsedCookie = self.parseCookie(socket.handshake.headers.cookie);
         //	console.log("*************",parsedCookie)
         var sessionID = parsedCookie['express.sid'] ? S(parsedCookie['express.sid']).replaceAll("s:", "").s : "ID NOT FOUND";

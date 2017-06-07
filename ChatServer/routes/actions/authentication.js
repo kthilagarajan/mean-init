@@ -1,5 +1,6 @@
 var Authentication = function(app){
 	this.db = app.dbconn;
+	this.socket = app.socket;
 };
 
 module.exports = Authentication;
@@ -23,11 +24,14 @@ Authentication.prototype.login = function(req, cbk){
 		  if(!err && result){
 			  if(result.password == password && result.username == username){
 				  delete result.password;
-				  
 				  response['status'] = true;
 				  response['data'] = result;
-				  cbk(response)
-				  
+				  self.db.collection('users').update({username:username},{"$set":{inSession:true}},function(err,updateResult){
+				    self.socket.io.emit("activeUsers",result)
+				    cbk(response)
+				  })
+
+
 			  }
 			  else{
 				  response['err'] = 'password mismatch';
