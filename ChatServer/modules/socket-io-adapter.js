@@ -29,7 +29,10 @@ SocketIO.prototype.eventHandlers = function () {
             console.log(self.singleChat.storeMessage())
         });
 
-
+        socket.on("singleChat",function(data){
+            console.log("socket",data)
+            self.io.emit("singleChat",data)
+        })
 
         var parsedCookie = self.parseCookie(socket.handshake.headers.cookie);
         //	console.log("*************",parsedCookie)

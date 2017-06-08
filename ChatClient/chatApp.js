@@ -31,6 +31,7 @@ function homeController($scope,loginService,chatService){
             if(response.status){
                 vm.loginSuccess = true;
                 setUserSession(vm.login)
+                vm.currentUser = getUserSession().un
                 $scope.getActiveUsers()
             }else{
                 alert(response.err)
@@ -50,34 +51,39 @@ function homeController($scope,loginService,chatService){
     }
 
     var socket = io('http://172.16.6.50:8080');
-    vm.chatHistory = [
-        {
-            "client" : true,
-            "server" : false,
-            "message" : "Hi, How are you"
-        },
-        {
-            "client" : false,
-            "server" : true,
-            "message" : "I am fine"
-        }
-    ]
-    vm.sendMessage = function (msgText) {
-        vm.chatHistory.push({
-            "client" : true,
-            "server" : false,
-            "message" : msgText
-        })
-        vm.messageText = ""
-    }
+    vm.chatHistory = []
+
 
     socket.on('connect', function(){
         console.log("Socket Connected")
     });
     socket.on('activeUsers', function(data){
-        vm.activeUsersList = _.uniq(vm.activeUsersList.concat(data))
+        var alreadyExists = false;
+        for(key in vm.activeUsersList){
+            if(vm.activeUsersList[key].username === data.username){
+                vm.activeUsersList = _.reject(vm.activeUsersList, {"username" : data.username})
+                alreadyExists =true;
+            }
+        }
+        if(!alreadyExists){
+            vm.activeUsersList = vm.activeUsersList.concat(data)
+        }
         $scope.$apply()
     });
+    socket.on("singleChat",function(data){
+        vm.chatHistory = vm.chatHistory.concat(data)
+        $scope.$apply()
+    })
+
+    vm.sendMessage = function (msgText) {
+            var chatInfo = {
+                "fromId" : getUserSession().un,
+                "message" : msgText,
+                "date" : new Date("DD-MM-YYYY hh:mm:ss")
+            }
+            socket.emit("singleChat",chatInfo)
+            vm.messageText = ""
+        }
     socket.on('disconnect', function(){
         console.log("Socket Disconnected")
     });

@@ -48,7 +48,7 @@
                 <i class="fa fa-user fa-2x"></i>
             </div>
             <div class="col-md-10">
-                User name
+                {{vm.currentUser}}
             </div>
             <div class="col-md-1">
                 <i ng-click="logout()" class="fa fa-gears fa-2x"></i>
@@ -58,8 +58,8 @@
             <ul style="list-style: none;padding: 0px;">
                 <li ng-repeat="chatObj in vm.chatHistory"
                     style="width:100%;display: flex;"
-                    ng-class="chatObj.client ? 'clientAlign' : ''">
-                    <div ng-class="chatObj.client ? 'client' : 'server'">
+                    ng-class="chatObj.fromId === vm.currentUser ? 'clientAlign' : ''">
+                    <div ng-class="chatObj.fromId === vm.currentUser ? 'client' : 'server'">
                         {{chatObj.message}}
                     </div>
                 </li>
